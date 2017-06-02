@@ -26,6 +26,10 @@ public class WxCpMessageGsonAdapter implements JsonSerializer<WxCpMessage> {
   public JsonElement serialize(WxCpMessage message, Type typeOfSrc, JsonSerializationContext context) {
     JsonObject messageJson = new JsonObject();
     messageJson.addProperty("agentid", message.getAgentId());
+    //add 保密消息处理
+    if (StringUtils.isNotBlank(message.getSafe())) {
+		  messageJson.addProperty("safe", message.getSafe());
+    }
     if (StringUtils.isNotBlank(message.getToUser())) {
       messageJson.addProperty("touser", message.getToUser());
     }
